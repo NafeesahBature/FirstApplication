@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Button tapped", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Button anything", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
