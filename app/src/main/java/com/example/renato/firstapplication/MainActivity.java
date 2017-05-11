@@ -8,16 +8,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
     void startOtherActivity(){
-        startActivity(new Intent(this, OtherActivity.class));
+
+        Intent intent = new Intent(this, OtherActivity.class);
+        intent.putExtra("MainActivity_content","From main activity");
+        startActivity(intent);
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
