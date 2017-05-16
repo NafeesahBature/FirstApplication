@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class OtherActivity extends AppCompatActivity {
@@ -15,6 +16,13 @@ public class OtherActivity extends AppCompatActivity {
     Intent intent = null;
     String message = null;
 
+    void startMyService(String msg){
+
+        Intent intent = new Intent(this, BackgroundService.class);
+        intent.putExtra("msg_to_service", msg);
+        startService(intent);
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,16 @@ public class OtherActivity extends AppCompatActivity {
         }
 
         tview.setText(message);
+
+        Button button = (Button) findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Button anything", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+                startMyService("Button pressed in OtherActivity");
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

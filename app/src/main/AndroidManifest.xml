@@ -21,7 +21,12 @@
         <activity
             android:name=".OtherActivity"
             android:label="@string/title_activity_other"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".BackgroundService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

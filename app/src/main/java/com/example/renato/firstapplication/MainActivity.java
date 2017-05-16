@@ -14,6 +14,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     EditText etext = null;
+    boolean firstStart = true;
 
     void startOtherActivity(){
 
@@ -33,6 +34,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Still not okay: changing orientation will mess this up.
+    //You need to fix this!
+    void startMyService(String msg){
+
+        Intent intent = new Intent(this, BackgroundService.class);
+        intent.putExtra("msg_to_service", msg);
+        startService(intent);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (firstStart){
+            Intent intent = new Intent(this, BackgroundService.class);
+            intent.putExtra("msg_to_service", "First start");
+            startService(intent);
+            firstStart = false;
+        }
 
         etext = (EditText) findViewById(R.id.editText); //remove this to present NullPointerException
 
@@ -49,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Snackbar.make(view, "Button anything", Snackbar.LENGTH_LONG)
                 //        .setAction("Action", null).show();
+                startMyService("Button pressed in MainActivity");
                 startOtherActivity();
             }
         });
@@ -63,4 +82,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, BackgroundService.class));
+        super.onDestroy();
+    }
 }
